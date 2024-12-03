@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-#SECRET_KEY = 'django-insecure-$d-158l654+ueobk_s1acak%$5x)w(hi+qqcqzhzz_0*67^a0%'
+#SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-$d-158l654+ueobk_s1acak%$5x)w(hi+qqcqzhzz_0*67^a0%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Orders',
+    'Users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'tacografos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['tacografos/Orders/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

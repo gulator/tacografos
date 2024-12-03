@@ -1,3 +1,4 @@
 .env
 tacografos/venv/
 requirements.txt
+others.txt
