@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block orders %}
+<main>
+    <div class="main-title">
+        <h2>PERFIL</h2>
+
+        <!-- <div class="input-group mb-3 buscar" >
+            <input type="text" class="form-control" placeholder="Buscar Patente" aria-label="Recipient's username"
+                aria-describedby="button-addon2" id="patente">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg></button>
+        </div> -->
+    </div>
+    <div class="orders">
+        <div class="new-order-container">
+            <form class="formulario" action="">
+                <div>
+                    <h4>Perfil del usuario</h4>
+                    <h6>Agente Oficial N° {{profile.agente}}</h5>
+                        <div class="input-container">
+                            <div class="label-container">
+                                <label for="razon_social">Nombre del Puesto</label>
+                                <input type="text" placeholder="Ej: PST ELETRONICA LTDA" id="razon_social" name="razon_social" value="{{profile.razon_social}}">
+                            </div>
+                            <div class="label-container">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" placeholder="Ej: Coronel Cetz 166" name="direccion" id="direccion" value="{{profile.direccion}}">
+                            </div>
+                        </div>
+                        <div class="input-container">
+                            <div class="label-container">
+                                <label for="localidad">Localidad</label>
+                                <input type="text" placeholder="Ej: San Isidro" name="localidad" id="localidad" value="{{profile.localidad}}">
+                            </div>
+                            <div class="label-container">
+                                <label for="provincia">Provincia</label>
+                                <select name="provincia" id="provincia">
+                                    <option value="{{profile.provincia}}">{{profile.provincia}}</option>
+                                    {% for n in provincia %}
+                                    <option value="{{n.provincia}}">{{n.provincia}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="label-container">
+                                <label for="pais">Pais</label>
+                                <select name="pais" id="pais">
+                                    <option value="{{profile.pais}}">{{profile.pais}}</option>
+                                    {% for p in pais %}
+                                    <option value="{{p.pais}}">{{p.pais}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-container">
+                            <div class="label-container">
+                                <label for="email">Email</label>
+                                <input type="email" placeholder="Ej: xxx@xxx.com" id="email" name="email" value="{{profile.email}}">
+                            </div>
+                            <div class="label-container">
+                                <label for="tel1">Teléfono 1</label>
+                                <input type="text" placeholder="Ej: 1147000051" id="tel1" name="tel1" value="{{profile.tel1}}">
+                            </div>
+                            <div class="label-container">
+                                <label for="tel2">Teléfono 1</label>
+                                <input type="text" placeholder="Ej: 1147000051" id="tel2" name="tel2" value="{{profile.tel2}}">
+                            </div>
+                        </div>
+                </div>
+                
+                <button class="std-button">Editar Orden</button>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}

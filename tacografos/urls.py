@@ -24,8 +24,10 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',users_views.login_request, name='login_request'),
     path('Orders/', include('Orders.urls')),
-    path('',views.inicio, name='home'),
+    path('Users/', include('Users.urls')),
     
     #path('Users/', include('Users.urls'))
 ]
+handler404 = 'Orders.views.custom_404'

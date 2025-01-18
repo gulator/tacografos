@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block orders %}
+<main>
+    <div class="main-title">
+        <h2>EDITAR ORDEN</h2>
+        
+        <!-- <div class="input-group mb-3 buscar" >
+            <input type="text" class="form-control" placeholder="Buscar Patente" aria-label="Recipient's username"
+                aria-describedby="button-addon2" id="patente">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg></button>
+        </div> -->
+    </div>
+    <div class="orders">
+        <div class="new-order-container">
+            <form class="formulario" action="" method="POST">
+                {% csrf_token %}
+                <div>
+                    <h4>Identificación del vehículo</h4>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="dominio">Dominio</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Dominio" id="dominio" name="dominio" value="{{edited_order.dominio.value}}" oninput="this.value = this.value.toUpperCase();">
+                            {% elif order %}
+                            <input type="text" placeholder="Dominio" id="dominio" name="dominio" value="{{order.dominio}}" oninput="this.value = this.value.toUpperCase();">
+                            {% else %}
+                            <input type="text" placeholder="Dominio" id="dominio" name="dominio">
+                            {% endif %}
+                            {% if edited_order.dominio.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.dominio.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="chasis">Chasis</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Chasis" id="chasis" name="chasis" value="{{edited_order.chasis.value}}" oninput="this.value = this.value.toUpperCase()">
+                            {% elif order %}
+                            <input type="text" placeholder="Chasis" id="chasis" name="chasis" value="{{order.chasis}}" oninput="this.value = this.value.toUpperCase()">
+                            {% else %}
+                            <input type="text" placeholder="Chasis" id="chasis" name="chasis">
+                            {% endif %}
+                            {% if edited_order.chasis.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.chasis.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="marca_vehiculo">Marca Vehículo</label>
+
+                            <select name="marca_vehiculo" id="marca_vehiculo">     
+                                {% if edited_order %}
+                                <option value="{{edited_order.marca_vehiculo.value}}">{{edited_order.marca_vehiculo.value}}</option>                                
+                                {% elif order %}
+                                <option value="{{order.marca_vehiculo}}">{{order.marca_vehiculo}}</option>                                
+                                {% else %}
+                                <option value="">Seleccione Marca</option>                                
+                                {% endif %}
+                                {% for m in marca %}
+                                <option value="{{m.marca_vehiculo}}">{{m.marca_vehiculo}}</option>
+                                {% endfor %}
+                            </select>
+                            {% if edited_order.marca_vehiculo.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.marca_vehiculo.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="modelo_vehiculo">Modelo</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Modelo" name="modelo_vehiculo" id="modelo_vehiculo" value="{{edited_order.modelo_vehiculo.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Modelo" name="modelo_vehiculo" id="modelo_vehiculo" value="{{order.modelo_vehiculo}}">
+                            {% else %}
+                            <input type="text" placeholder="Modelo" name="modelo_vehiculo" id="modelo_vehiculo">
+                            {% endif%}
+                            {% if edited_order.modelo_vehiculo.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.modelo_vehiculo.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="ano_vehiculo">Año</label>
+                            <select name="ano_vehiculo" id="ano_vehiculo">
+                                {% if edited_order %}
+                                <option value="{{edited_order.ano_vehiculo.value}}">{{edited_order.ano_vehiculo.value}}</option> 
+                                {% elif order %}
+                                <option value="{{order.ano_vehiculo}}">{{order.ano_vehiculo}}</option> 
+                                {% else %}
+                                <option value="">Seleccione Año</option>
+                                {% endif %}
+                                {% for a in ano %}
+                                <option value="{{a.ano_vehiculo}}">{{a.ano_vehiculo}}</option>
+                                {% endfor %}
+                            </select>
+                            {% if edited_order.ano_vehiculo.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.ano_vehiculo.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="operador">Operador</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Operador" id="operador" name="operador" value="{{edited_order.operador.value}}">
+                            {% elif order%}
+                            <input type="text" placeholder="Operador" id="operador" name="operador" value="{{order.operador}}">
+                            {% else %}
+                            <input type="text" placeholder="Operador" id="operador" name="operador">
+                            {% endif %}
+                            {% if edited_order.operador.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.operador.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="cuit">CUIT/DNI</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="CUIT" id="cuit" name="cuit" value="{{edited_order.cuit.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="CUIT" id="cuit" name="cuit" value="{{order.cuit}}">
+                            {% else %}
+                            <input type="text" placeholder="CUIT" id="cuit" name="cuit">
+                            {% endif %}
+                            {% if edited_order.cuit.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.cuit.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Datos del Tacógrafo</h4>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="marca_tacografo">Marca Tacógrafo</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Marca" name="marca_tacografo" id="marca_tacografo" value="{{edited_order.marca_tacografo.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Marca" name="marca_tacografo" id="marca_tacografo" value="{{order.marca_tacografo}}">
+                            {% else %}
+                            <input type="text" placeholder="Marca" name="marca_tacografo" id="marca_tacografo">
+                            {% endif %}
+                            {% if edited_order.marca_tacografo.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.marca_tacografo.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="modelo_tacografo">Modelo</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Modelo" name="modelo_tacografo" id="modelo_tacografo" value="{{edited_order.modelo_tacografo.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Modelo" name="modelo_tacografo" id="modelo_tacografo" value="{{order.modelo_tacografo}}">
+                            {% else %}
+                            <input type="text" placeholder="Modelo" name="modelo_tacografo" id="modelo_tacografo">
+                            {% endif %}
+                            {% if edited_order.modelo_tacografo.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.modelo_tacografo.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="sn">N° de serie</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="N° Serie" id="sn" name="sn" value="{{edited_order.sn.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="N° Serie" id="sn" name="sn" value="{{order.sn}}">
+                            {% else %}
+                            <input type="text" placeholder="N° Serie" id="sn" name="sn">
+                            {% endif %}
+                            {% if edited_order.sn.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.sn.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="factor_k">Factor K</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Factor K" id="factor_k" name="factor_k" value="{{edited_order.factor_k.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Factor K" id="factor_k" name="factor_k" value="{{order.factor_k}}">
+                            {% else %}
+                            <input type="text" placeholder="Factor K" id="factor_k" name="factor_k">
+                            {% endif %}
+                            {% if edited_order.factor_k.errors %}
+                            <div class="requerido">
+                                {% for error in edited_order.factor_k.errors %}
+                                <p>{{error}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="rodado">Rodado</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Rodado" id="rodado" name="rodado" value="{{edited_order.rodado.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Rodado" id="rodado" name="rodado" value="{{order.rodado}}">
+                            {% else %}
+                            <input type="text" placeholder="Rodado" id="rodado" name="rodado">
+                            {% endif %}
+                        </div>
+                        <div class="label-container">
+                            <label for="limite_v">Límite de velocidad</label>
+                            {% if edited_order %}
+                            <input type="text" placeholder="Limite de Vel." id="limite_v" name="limite_v" value="{{edited_order.limite_v.value}}">
+                            {% elif order %}
+                            <input type="text" placeholder="Limite de Vel." id="limite_v" name="limite_v" value="{{order.limite_v}}">
+                            {% else %}
+                            <input type="text" placeholder="Limite de Vel." id="limite_v" name="limite_v">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="fecha">Fecha Certificación</label>
+                            {% if edited_order %}
+                            <input type="date" id="fecha" name="fecha" value="{{edited_order.fecha.value}}">
+                            {% elif order %}
+                            <input type="date" id="fecha" name="fecha" value="{{ order.fecha|date:'Y-m-d' }}">
+                            {% else %}
+                            <input type="date" id="fecha" name="fecha">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div class="label-container">
+                            <label for="ot">Orden de Trabajo</label>
+                            {% if edited_order %}
+                            <input type="text" name="ot" id="ot" value="{{edited_order.ot.value}}">
+                            {% elif order %}
+                            <input type="text" name="ot" id="ot" value="{{order.ot}}">
+                            {% else %}
+                            <input type="text" name="ot" id="ot">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <button class="std-button" type="submit">Editar Orden</button>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}

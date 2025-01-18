@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block orders %}
+<main>
+    <div class="main-title">
+        <h2>DETALLE PUESTO</h2>
+
+    </div>
+    <div class="orders shop">
+        <div class="tarjeta">
+            <h4>{{puesto.razon_social}}</h4>
+            <div class="datos">
+                <p>{{puesto.direccion}}, {{puesto.localidad}}</p>
+                <p>{{puesto.provincia}}, {{puesto.pais}}</p>
+                <p>{{puesto.email}}</p>
+                <p>Tel: {{puesto.tel1}}</p>
+                <p><strong>Responsable:</strong> {{puesto.responsable}}</p>
+            </div>
+            <div class="datos">
+                <p><strong>Usuario:</strong> {{puesto.usuario}}</p>
+                <p><strong>Contraseña:</strong> {{puesto.contrasena}}</p>
+            </div>
+            <p><strong>Cliente:</strong> 10000{{puesto.agente}}</p>
+        </div>
+        <a href="{% url 'puestos' %}">volver al listado</a>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block orders %}
+<main >
+    <div class="main-title">
+        <h2>IMPRIMIR ORDEN</h2>
+        
+        <!-- <div class="input-group mb-3 buscar" >
+            <input type="text" class="form-control" placeholder="Buscar Patente" aria-label="Recipient's username"
+                aria-describedby="button-addon2" id="patente">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg></button>
+        </div> -->
+    </div>
+    <div class="orders">
+        <div class="card card-data" id="order-prn">
+            <div class="titulo">
+                <h3>Certificado de calibración e instalación</h3>
+                <img class="logo-card" src="{% static 'orders/img/logo.png' %}" alt="">
+            </div>
+            {% if order %}
+            <div class="data-container">
+                <h3>AGENTE OFICIAL N° <strong>{{usuario.agente}}</strong></h3>
+                <div class="data">
+                    <div class="vehicle">
+                        <p><strong>IDENTIFICACIÓN DEL VEHÍCULO</strong></p>
+                        <p><strong>DOMINIO: </strong>{{order.dominio}}</p>
+                        <p><strong>CHASIS: </strong>{{order.chasis}}</p>
+                        <p><strong>MARCA: </strong>{{order.marca_vehiculo}}</p>
+                        <p><strong>MODELO: </strong>{{order.modelo_vehiculo}}</p>
+                        <p><strong>AÑO: </strong>{{order.ano_vehiculo}}</p>
+                        <p><strong>OPERADOR: </strong>{{order.operador}}</p>
+                        <p><strong>CUIT: </strong>{{order.cuit}}</p>
+                        <!-- <p><strong>CATEGORIA: </strong>TRANSPORTE PASAJERO</p> -->
+                    </div>
+                    <div class="tachograph">
+                        <p><strong>DATOS DEL TACÓGRAFO</strong></p>
+                        <p><strong>MARCA TACÓGRAFO: </strong>{{order.marca_tacografo}}</p>
+                        <p><strong>MODELO: </strong>{{order.modelo_tacografo}}</p>
+                        <p><strong>N° SERIE: </strong>{{order.sn}}</p>                        
+                        <p><strong>FACTOR K: </strong>{{order.factor_k}}</p>
+                        <p><strong>RODADO: </strong>{{order.rodado}}</p>
+                        <p><strong>LIMITE DE VEL.: </strong>{{order.limite_v}}</p>
+                    </div>
+                </div>
+                <div class="foot-container">
+                    <div class="address">
+                        <h3>{{usuario.razon_social}}</h3>
+                        <p>{{usuario.direccion}}</p>
+                        <p>{{usuario.provincia}}</p>
+                        <p>{{usuario.email}}</p>
+                        <p>Tel: {{usuario.tel1}}</p>
+                        {% if usuario.tel2%}
+                        <p>Tel 2: {{usuario.tel2}}</p>
+                        {% endif %}
+                        <!-- <p>cel: 291-5030514</p> -->
+                    </div>
+                    <div class="sign">
+                        <div class="sign-field">
+                            <hr>
+                            <p>FIRMA Y SELLO</p>
+                        </div>
+                        <p><strong>FECHA DE CERTIFICACIÓN: </strong>{{ order.fecha|date:'d-m-Y' }}</p>
+                        <p><strong>ORDEN DE TRABAJO: </strong>{{order.ot}}</p>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <button id="prn-btn" class="std-button">IMPRIMIR</button>
+    </div>
+</main>
+<script src="{% static 'orders/js/scripts.js' %}"></script>    
+{% endblock %}

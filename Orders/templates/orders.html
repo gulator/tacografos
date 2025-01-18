@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block orders %}
+<main>
+    <div class="main-title">
+        <h2>ORDENES</h2>
+        <form class="buscar-patente" action="/Orders/search-order">
+            <div class="input-group mb-3 buscar">
+                <input type="text" class="form-control btn-outline-secondary" placeholder="Buscar Patente"
+                    aria-label="Recipient's username" aria-describedby="button-addon2" id="patente" name="dominio">
+                <button class="btn btn-outline-secondary search-btn" type="submit" id="button-addon2"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fafafa" class="bi bi-search"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg></button>
+            </div>
+            <div class="borrar">
+                <a class="borrarMute" href="{% url 'orders' %}">borrar filtro</a>
+            </div>
+        </form>
+    </div>
+    {% if alerta %}
+    <div class="alert alert-warning" role="alert" style="text-align: center;">
+        {{alerta}}
+    </div>
+    {% endif %}
+    {% if alerta2 %}
+    <div class="alert alert-danger" role="alert" style="text-align: center;">
+        {{alerta2}}
+    </div>
+    {% endif %}
+    <div class="orders">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="table-dark">
+
+                    <th scope="col">Patente</th>
+                    <th class="puesto-hidden" scope="col">Marca</th>
+                    <th class="puesto-hidden" scope="col">Modelo</th>
+                    <th class="puesto-hidden" scope="col">S/N</th>
+                    <th class="puesto-hidden" scope="col">Fecha</th>
+                    {% if user.is_staff %}
+                    <th scope="col">Puesto</th>
+                    {% endif %}
+                    <th scope="col">Editar</th>
+                    <th scope="col">Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in ordenes %}
+                <tr>
+                    <th scope="row">{{n.dominio}}</th>
+                    <td class="puesto-hidden">{{n.marca_vehiculo}}</td>
+                    <td class="puesto-hidden">{{n.modelo_vehiculo}}</td>
+                    <td class="puesto-hidden">{{n.sn}}</td>
+                    <td class="puesto-hidden">{{n.fecha}}</td>
+                    {% if user.is_staff %}
+                    <td>{{n.puesto}}</td>
+                    {% endif %}
+                    <td class="iconos"><a href="{% url 'edit-order' n.id %}"><i class="bi bi-pencil"></i></a></td>
+                    <td class="iconos"><a href="{% url 'print-order' n.id %}"><i class="bi bi-printer"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+{% endblock %}
